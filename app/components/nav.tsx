@@ -21,18 +21,20 @@ export function Navbar() {
       const scrollPosition = window.scrollY;
 
       // Iterate through each section to find the one in view
-      const sectionOffsets = navItems.map((item) => {
-        const element = document.querySelector(item.path) as HTMLElement | null; // Type assertion here
-        return element
-          ? { path: item.path, offsetTop: element.offsetTop, offsetHeight: element.offsetHeight }
-          : null;
-      }).filter(Boolean);
+      const sectionOffsets = navItems
+        .map((item) => {
+          const element = document.querySelector(item.path) as HTMLElement | null; // Type assertion here
+          return element
+            ? { path: item.path, offsetTop: element.offsetTop, offsetHeight: element.offsetHeight }
+            : null;
+        })
+        .filter((section): section is { path: string; offsetTop: number; offsetHeight: number } => section !== null); // Type guard to ensure section is not null
 
       let activeSection = '';
 
       sectionOffsets.forEach((section) => {
         if (
-          scrollPosition >= section.offsetTop - 100 && 
+          scrollPosition >= section.offsetTop - 100 &&
           scrollPosition < section.offsetTop + section.offsetHeight - 100
         ) {
           activeSection = section.path;
