@@ -4,8 +4,7 @@ import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { ShaderMaterial } from 'three';
-import * as dat from 'dat.gui'; // Import dat.gui for UI controls (optional)
-
+ 
 
 // === Enhanced Warp Shader ===
 const enhancedWarpShader = {
