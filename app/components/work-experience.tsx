@@ -5,15 +5,17 @@ const WorkExperience = () => {
     <div className="relative bg-gray-800 text-white py-16 lg:py-32">
       <div className="max-w-6xl mx-auto px-6">
         <h2 className="text-3xl sm:text-4xl font-bold text-center text-white mb-12">
-          Work Experience / ( company info given when I apply, not putting online for spam reasons )
+          Work Experience 
         </h2>
 
         <div className="mb-16 space-y-8">
+        <span>( company info given when I apply, not putting online for spam reasons )</span>
+
           <h3 className="text-2xl sm:text-3xl font-semibold text-indigo-400 mb-4">
             Self-Directed Study and Professional Growth
           </h3>
           <p className="text-lg text-gray-300 mb-4">
-            <strong></strong> | <strong>February 2022 – Present</strong>
+            <strong>Location:</strong> | <strong>February 2022 – Present</strong>
           </p>
           <ul className="list-disc pl-6 space-y-3 text-gray-300">
             <li>

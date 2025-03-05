@@ -22,8 +22,10 @@ export function Navbar() {
 
       // Iterate through each section to find the one in view
       const sectionOffsets = navItems.map((item) => {
-        const element = document.querySelector(item.path);
-        return element ? { path: item.path, offsetTop: element.offsetTop, offsetHeight: element.offsetHeight } : null;
+        const element = document.querySelector(item.path) as HTMLElement | null; // Type assertion here
+        return element
+          ? { path: item.path, offsetTop: element.offsetTop, offsetHeight: element.offsetHeight }
+          : null;
       }).filter(Boolean);
 
       let activeSection = '';
