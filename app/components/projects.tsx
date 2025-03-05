@@ -2,7 +2,15 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-const projectsData = [
+// Define the Project type
+type Project = {
+  title: string;
+  description: string;
+  images: string[];
+  link: string;
+};
+
+const projectsData: Project[] = [
   {
     title: "3D Fractal Model Generator",
     description:
@@ -123,10 +131,10 @@ const projectsData = [
 ];
 
 export default function Projects() {
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const openModal = (project) => {
+  const openModal = (project: Project) => {
     setSelectedProject(project);
     setCurrentIndex(0);
   };
