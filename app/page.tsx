@@ -5,7 +5,6 @@ import Projects from 'app/components/projects';
 import AboutMe from 'app/components/about';
 import Resume from 'app/components/resume';
 import Hobbies from './components/hobbies';
-import BlogSection from './components/blog-section';
 
 export default function Page() {
   return (
@@ -33,19 +32,10 @@ export default function Page() {
           </a>
         </section>
 
-        {/* About Section */}
         <AboutMe />
-
-        {/* Skills Section */}
         <Hobbies />  
-        
-        {/* Portfolio/Projects Section */}
         <Projects />
-
-        {/* Resume Section */}
         <Resume />
-
-        {/* Contact Section */}
         <ThankYou />
  
       </div>

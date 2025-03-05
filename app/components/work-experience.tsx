@@ -5,16 +5,15 @@ const WorkExperience = () => {
     <div className="relative bg-gray-800 text-white py-16 lg:py-32">
       <div className="max-w-6xl mx-auto px-6">
         <h2 className="text-3xl sm:text-4xl font-bold text-center text-white mb-12">
-          Work Experience
+          Work Experience / ( company info given when I apply, not putting online for spam reasons )
         </h2>
 
-        {/* Self-Directed Study and Professional Growth */}
         <div className="mb-16 space-y-8">
           <h3 className="text-2xl sm:text-3xl font-semibold text-indigo-400 mb-4">
             Self-Directed Study and Professional Growth
           </h3>
           <p className="text-lg text-gray-300 mb-4">
-            <strong>Location:</strong> Pensacola, Florida | <strong>February 2022 – Present</strong>
+            <strong></strong> | <strong>February 2022 – Present</strong>
           </p>
           <ul className="list-disc pl-6 space-y-3 text-gray-300">
             <li>
@@ -29,13 +28,12 @@ const WorkExperience = () => {
           </ul>
         </div>
 
-        {/* Website and Product Manager | Digital Marketing and Sales Associate */}
         <div className="mb-16 space-y-8">
           <h3 className="text-2xl sm:text-3xl font-semibold text-indigo-400 mb-4">
-            Website and Product Manager | Digital Marketing and Sales Associate
+            Website and Product Manager | Digital Marketing and Sales Associate | Real Company 1
           </h3>
           <p className="text-lg text-gray-300 mb-4">
-            <strong>Company:</strong> Brooklyn City Furniture | <strong>Location:</strong> Brooklyn, NY | <strong>June 2018 – June 2022</strong>
+         <strong>Location:</strong> NY | <strong>June 2018 – June 2022</strong>
           </p>
           <ul className="list-disc pl-6 space-y-3 text-gray-300">
             <li>
@@ -50,10 +48,10 @@ const WorkExperience = () => {
           </ul>
         </div>
 
-        {/* Web Content Specialist and Front-End Developer at John David LLC / Cannliv */}
+
         <div className="mb-16 space-y-8">
           <h3 className="text-2xl sm:text-3xl font-semibold text-indigo-400 mb-4">
-            Web Content Specialist and Front-End Developer | John David LLC / Cannliv
+            Web Content Specialist and Front-End Developer | Real Company 2
           </h3>
           <p className="text-lg text-gray-300 mb-4">
             <strong>Location:</strong> Dallas, TX | <strong>January 2014 – December 2020</strong>
@@ -74,13 +72,12 @@ const WorkExperience = () => {
           </ul>
         </div>
 
-        {/* Web Content Specialist and Front-End Developer at RPimaging Inc */}
         <div className="mb-16 space-y-8">
           <h3 className="text-2xl sm:text-3xl font-semibold text-indigo-400 mb-4">
-            Web Content Specialist and Front-End Developer | RPimaging Inc
+            Web Content Specialist and Front-End Developer | Real Company 3
           </h3>
           <p className="text-lg text-gray-300 mb-4">
-            <strong>Location:</strong> Tucson, AZ | <strong>March 2015 – May 2017</strong>
+            <strong>Location:</strong>  AZ | <strong>March 2015 – May 2017</strong>
           </p>
           <ul className="list-disc pl-6 space-y-3 text-gray-300">
             <li>
