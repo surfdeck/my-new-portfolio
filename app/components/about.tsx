@@ -11,7 +11,6 @@ const AboutMe = () => {
     '/about/mv-2.png',
     '/about/art1.png',
     '/about/cool-nft.png',
-    '/about/funky.png',
     '/about/art-project.png',
     '/about/art-project3.png',
     '/about/break-dance1.png',
