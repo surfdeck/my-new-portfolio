@@ -1,10 +1,8 @@
 'use client';
-
 import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { ShaderMaterial } from 'three';
- 
 
 // === Enhanced Warp Shader ===
 const enhancedWarpShader = {
@@ -18,7 +16,7 @@ const enhancedWarpShader = {
     void main() {
       vUv = uv;
       vec3 newPosition = position;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 2.0);
     }
   `,
   fragmentShader: `
@@ -29,7 +27,7 @@ const enhancedWarpShader = {
 
     void main() {
       vec2 uv = vUv;
-      float distortion = sin(time * 3.0 + uv.x * 12.0) * warpIntensity; // Faster warp
+      float distortion = sin(time * 1.0 + uv.x * 6.0) * warpIntensity; // Faster warp
       vec2 warpedUv = uv + distortion;
 
       // New Color palette: Green, Blue, and Cyan
@@ -133,7 +131,7 @@ const Hero3D = () => {
     // === Dynamic Warp Intensity and Color Shift ===
     let time = 0;
     let zoomLevel = 0;
-    let warpIntensityFactor = 1.0;  // Base warp intensity factor
+    let warpIntensityFactor = 12.0;  // Base warp intensity factor
     let colorShiftFactor = 0.0;     // Base color shift factor
 
     window.addEventListener('wheel', (event) => {
@@ -142,17 +140,8 @@ const Hero3D = () => {
 
       // Dynamic warp and color shift based on zoom
       warpIntensityFactor = 1.0 + Math.sin(zoomLevel * 0.1) * 0.8; // Warp intensity oscillates with zoom
-      colorShiftFactor = Math.cos(zoomLevel * 0.08) * 0.15;       // Color shift oscillates too
+      colorShiftFactor = Math.cos(zoomLevel * 10.08) * 0.15;       // Color shift oscillates too
     });
-
-
-     // === dat.GUI controls (Optional - for development/experimentation) ===
-    // const gui = new dat.GUI(); // Uncomment to use dat.GUI
-    // const shaderControls = gui.addFolder('Shader Controls');
-    // shaderControls.add(enhancedWarpShader.uniforms.warpIntensity, 'value', 0, 2.0).name('Warp Intensity');
-    // shaderControls.add(enhancedWarpShader.uniforms.colorShift, 'value', -0.5, 0.5).name('Color Shift');
-    // shaderControls.open();
-    // gui.close(); // Initially close GUI
 
 
     // === Animation Loop ===

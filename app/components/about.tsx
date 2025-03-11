@@ -57,7 +57,7 @@ const AboutMe = () => {
     <section id="about" className="p-8 ">
       <div className="relative bg-gray-900 text-white">
         {/* Background Image or Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-indigo-900 opacity-50"></div>
+        <div className="absolute inset-0 bg-black"></div>
 
         {/* About Section */}
         <div className="relative z-10 max-w-6xl mx-auto px-6 py-16 lg:py-32">

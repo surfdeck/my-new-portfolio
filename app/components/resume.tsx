@@ -5,7 +5,7 @@ const Resume = () => {
   return (
     <section id="resume" className="p-8 ">
 
-    <div className="relative bg-gray-900 text-white">
+    <div className="relative bg-black text-white">
       {/* Background Gradient */}
  
       {/* Resume Content Wrapper */}
@@ -14,16 +14,14 @@ const Resume = () => {
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
             My Resume
           </h2>
-          <p className="text-lg sm:text-xl text-gray-300">
-            Check out my professional experience, achievements, and skills. Feel free to download my resume or get in touch for more details.
-          </p>
+       
         </div>
 
         {/* Experience Section */}
         <WorkExperience />
 
             {/* Skills Section */}
-      <div className="mb-16">
+        <div className="mb-16 mt-10">
         <h3 className="text-3xl font-semibold text-white mb-6">Core Skills</h3>
         <div className="flex flex-wrap justify-center gap-6">
           <span className="px-6 py-3 bg-indigo-600 text-white rounded-full text-lg font-semibold">

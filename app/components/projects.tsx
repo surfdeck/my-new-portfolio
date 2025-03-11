@@ -12,6 +12,25 @@ type Project = {
 
 const projectsData: Project[] = [
   {
+    title: "Brewery Management System",
+    description:
+      "Brewery Quest is an interactive web application built with Next.js on the frontend and Flask on the backend, designed for craft beer enthusiasts to discover local breweries.",
+    images: [
+      "/project-brew/1.png",
+      "/project-brew/2.png",
+      "/project-brew/3.png",
+      "/project-brew/4.png",
+      "/project-brew/5.png",
+      "/project-brew/6.png",
+      "/project-brew/7.png",
+      "/project-brew/8.png",
+      "/project-brew/9.png",
+      "/project-brew/10.png",
+      "/project-brew/11.png"
+    ],
+    link: "https://github.com/surfdeck/nextjs-flask-brewery-shop",
+  },
+  {
     title: "3D Fractal Model Generator",
     description:
       "A fractal model generator built with Next.js, Flask/Python, and Three.js, featuring pre-loaded designs. Also implemented in C++ using Python/JavaScript.",
@@ -129,6 +148,7 @@ const projectsData: Project[] = [
     link: "#",
   }
 ];
+
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
