@@ -7,17 +7,14 @@ const AboutMe = () => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const images = [
+    '/about/stl-ocean.png',  
     '/about/mv.png',
-    '/about/mv-2.png',
-    '/about/art1.png',
-    '/about/cool-nft.png',
     '/about/art-project.png',
     '/about/art-project3.png',
     '/about/break-dance1.png',
     '/about/break-dance2.png',
     '/about/break-dance3.png',
     '/about/break-dance4.png',
-    '/about/stl-ocean.png',  
   ];
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);

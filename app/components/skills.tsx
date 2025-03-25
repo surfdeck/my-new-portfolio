@@ -1,7 +1,7 @@
 import React from 'react';
 import WorkExperience from './work-experience';
 
-const Resume = () => {
+const Skills = () => {
   return (
     <section id="resume" className="p-8 ">
 
@@ -9,20 +9,18 @@ const Resume = () => {
       {/* Background Gradient */}
  
       {/* Resume Content Wrapper */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-16 lg:py-32">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            My Resume
+      <div className="relative z-10 max-w-8xl mx-auto px-6  ">
+        <div className="text-center">
+          <h2 className="text-4xl sm:text-5xl font-bold text-white">
+            Core Skills
           </h2>
        
         </div>
-
-        {/* Experience Section */}
-        <WorkExperience />
+ 
 
             {/* Skills Section */}
         <div className="mb-16 mt-10">
-        <h3 className="text-3xl font-semibold text-white mb-6">Core Skills</h3>
+
         <div className="flex flex-wrap justify-center gap-6">
           <span className="px-6 py-3 bg-indigo-600 text-white rounded-full text-lg font-semibold">
             JavaScript
@@ -113,4 +111,4 @@ const Resume = () => {
   );
 };
 
-export default Resume;
+export default Skills;

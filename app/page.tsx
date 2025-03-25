@@ -3,8 +3,7 @@ import Hero3D from 'app/components/hero3d'; // Our epic Hero3D component
 import ThankYou from 'app/components/thank-you';
 import Projects from 'app/components/projects';
 import AboutMe from 'app/components/about';
-import Resume from 'app/components/resume';
-import Hobbies from './components/hobbies';
+import Skills from 'app/components/skills';
 
 export default function Page() {
   return (
@@ -33,9 +32,8 @@ export default function Page() {
         </section>
 
         <AboutMe />
-        <Hobbies />  
+        <Skills />
         <Projects />
-        <Resume />
         <ThankYou />
  
       </div>

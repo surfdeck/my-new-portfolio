@@ -194,7 +194,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="p-8 bg-gradient-to-r from-teal-500 to-blue-500 text-white"
+      className="p-8 text-white"
     >
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-4xl font-bold mb-8">My Projects</h2>
