@@ -8,7 +8,7 @@ const navItems = [
   { path: '#about', name: 'About' },
   { path: '#projects', name: 'Portfolio/Projects' },
   { path: '#hobbies', name: 'Hobbies' },
-  { path: '#resume', name: 'Resume' },
+
 ];
 
 export function Navbar() {
