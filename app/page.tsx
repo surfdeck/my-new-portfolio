@@ -1,4 +1,4 @@
-import Image from 'next/image';
+
 import Hero3D from 'app/components/hero3d'; // Our epic Hero3D component
 import ThankYou from 'app/components/thank-you';
 import Projects from 'app/components/projects';
@@ -16,22 +16,25 @@ export default function Page() {
       {/* Content Wrapper with Extra Spacing */}
       <div className="relative z-10 flex flex-col gap-y-12">
         {/* Hero Section */}
-        <section className="h-screen flex flex-col justify-center items-center text-center text-white px-4">
-          <h2 className="text-4xl md:text-6xl font-bold mb-4">
+        <section className="h-screen text-black flex flex-col justify-center items-center text-center text-white px-4">
+          <h2 className="text-4xl  p-4 text-white md:text-6xl font-bold mb-4">
             Welcome to My Digital Space
           </h2>
-          <p className="max-w-2xl mb-8 text-lg">
+          <p className="max-w-2xl font-bold   text-white mb-8 text-lg">
             A passionate developer, designer, and creative thinker showcasing my journey through code and art.
           </p>
           <a 
             href="#projects"
-            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-full transition"
+            className="px-6 py-3 animate-bounce bg-indigo-600bg-indigo-600/25 hover:bg-indigo-700/50 rounded-full transition"
           >
             Explore My Work
           </a>
         </section>
 
         <AboutMe />
+      <div className="text-center  text-white text-4xl font-bold mt-4">
+      Abilites
+      </div>
         <Skills />
         <Projects />
         <ThankYou />

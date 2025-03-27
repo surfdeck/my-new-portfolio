@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react';
 const navItems = [
   { path: '#about', name: 'About' },
   { path: '#projects', name: 'Portfolio/Projects' },
-  { path: '#hobbies', name: 'Hobbies' },
 
 ];
 
@@ -53,7 +52,7 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white bg-opacity-80 backdrop-blur-md shadow-md z-50">
+    <nav className="fixed top-0 left-0 w-full  bg-opacity-80  shadow-md z-50">
       <div className="container mx-auto flex items-center justify-between px-6 py-3">
         
         {/* Logo Section */}
@@ -69,7 +68,7 @@ export function Navbar() {
               <Link
                 key={item.path}
                 href={item.path}
-                className={`relative group text-black flex items-center px-3 py-2 transition-colors duration-300 hover:text-indigo-600 ${isActive ? 'text-indigo-600 font-bold' : ''}`}
+                className={`relative group text-white/75  flex items-center px-3 py-2 transition-colors duration-300 hover:text-indigo-600 ${isActive ? 'text-indigo-600 font-bold' : ''}`}
               >
                 {item.name}
                 <AnimatePresence>
@@ -120,7 +119,7 @@ export function Navbar() {
                   <Link
                     key={item.path}
                     href={item.path}
-                    className={`relative group text-lg px-3 py-2 mb-2 transition-colors duration-300 hover:text-indigo-600 ${isActive ? 'text-indigo-600 font-bold' : ''}`}
+                    className={`relative group text-lg px-3 py-2 mb-2 text-white transition-colors duration-300 hover:text-indigo-600 ${isActive ? 'text-indigo-600 font-bold' : ''}`}
                   >
                     {item.name}
                     <AnimatePresence>

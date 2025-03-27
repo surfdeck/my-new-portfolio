@@ -1,21 +1,81 @@
 'use client';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 
-import { useState, useEffect } from 'react';
-import Image from 'next/image'; // Import the Image component
 const AboutMe = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    // === Three.js Setup ===
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 10;
+
+    const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000, 0); // Make the background transparent
+
+    // === Particles ===
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 100;
+    const positions = new Float32Array(particlesCount * 3);
+
+    for (let i = 0; i < particlesCount * 3; i++) {
+      positions[i] = (Math.random() - 0.5) * 50;
+    }
+
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const particlesMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.5 });
+    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particles);
+
+    // === OrbitControls ===
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.25;
+    controls.screenSpacePanning = false;
+
+    // === Window Resize Handling ===
+    const onResize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      renderer.setSize(width, height);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    };
+
+    window.addEventListener('resize', onResize);
+
+    // === Animation ===
+    const animate = () => {
+      requestAnimationFrame(animate);
+      particles.rotation.y += 0.001;
+      controls.update(); // Update controls on each frame
+      renderer.render(scene, camera);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', onResize);
+      renderer.dispose();
+    };
+  }, []);
 
   const images = [
-    '/about/stl-ocean.png',  
+    '/about/stl-ocean.png',
     '/about/mv.png',
-    '/about/art-project.png',
     '/about/art-project3.png',
     '/about/break-dance1.png',
     '/about/break-dance2.png',
     '/about/break-dance3.png',
     '/about/break-dance4.png',
   ];
+
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
@@ -41,32 +101,29 @@ const AboutMe = () => {
       }
     };
 
-    // Add event listener on mount
     window.addEventListener('keydown', handleKeyPress);
 
-    // Cleanup event listener on unmount
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
   }, []);
 
   return (
-    <section id="about" className="p-8 ">
-      <div className="relative bg-gray-900 text-white">
-        {/* Background Image or Gradient */}
-        <div className="absolute inset-0 bg-black"></div>
-
-        {/* About Section */}
-        <div className="relative z-10 max-w-6xl mx-auto px-6 py-16 lg:py-32">
+    <section id="about" className="p-8 relative">
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full object-cover" />
+      <div className="relative text-white">
+        <div className="absolute inset-0 bg-black/25"></div>
+        
+        <div className="relative z-10 max-w-6xl mx-auto px-6 ">
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-            {/* Left Section (Image Slider) */}
             <div className="flex justify-center items-center">
               <div className="relative w-full sm:w-96 sm:h-96 h-72 overflow-hidden rounded-lg shadow-lg">
                 <img
-                  src={images[currentIndex]} // Dynamically change the image
+                  src={images[currentIndex]}
                   alt="Slider Image"
                   className="object-cover w-full h-full transition-transform duration-300 ease-in-out cursor-pointer"
-                  onClick={() => openLightbox(currentIndex)} // Open Lightbox when image is clicked
+                  onClick={() => openLightbox(currentIndex)}
                 />
                 <button
                   onClick={prevSlide}
@@ -83,8 +140,7 @@ const AboutMe = () => {
               </div>
             </div>
 
-            {/* Right Section (Text) */}
-            <div className="flex flex-col justify-center text-center sm:text-left">
+             <div className=" justify-center text-center sm:text-left">
               <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
                 Hi, I'm Malik Villarreal
               </h1>
@@ -117,31 +173,21 @@ const AboutMe = () => {
         </div>
       </div>
 
+
       {isLightboxOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-90 z-[1000] flex items-center justify-center px-4"
-          onClick={closeLightbox} // Close on clicking outside
-        >
-          <div
-            className="relative w-full max-w-4xl h-auto flex flex-col items-center"
-            onClick={(e) => e.stopPropagation()} // Prevent event propagation to stop closing when clicking inside content
-          >
- 
-          {/* Image Container */}
-          <div className="relative w-full max-w-[90%] sm:max-w-[80%] lg:max-w-[70%] flex justify-center items-center">
-            {/* Image Resized for Responsiveness */}
-            <Image
-              src={images[currentIndex]} // Image path
-              alt="Lightbox Image"
-              width={600} // You can set a custom width (or use 100% width if desired)
-              height={400} // You can set a custom height (or use an aspect ratio)
-              className="object-cover w-full h-auto rounded-lg cursor-pointer"
-              onClick={nextSlide} // Move to next image on click
-            />
-          </div>
+        <div className="fixed inset-0 bg-black bg-opacity-90 z-[1000] flex items-center justify-center px-4" onClick={closeLightbox}>
+          <div className="relative w-full max-w-4xl h-auto flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+            <div className="relative w-full max-w-[90%] sm:max-w-[80%] lg:max-w-[70%] flex justify-center items-center">
+              <Image
+                src={images[currentIndex]}
+                alt="Lightbox Image"
+                width={600}
+                height={400}
+                className="object-cover w-full h-auto rounded-lg cursor-pointer"
+                onClick={nextSlide}
+              />
+            </div>
 
-
-            {/* Navigation Arrows */}
             <button
               onClick={prevSlide}
               className="absolute left-4 md:left-8 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white p-3 rounded-full shadow-md hover:bg-gray-800 transition"
@@ -156,7 +202,6 @@ const AboutMe = () => {
             </button>
           </div>
 
-          {/* Close Button */}
           <button
             className="absolute top-4 mt-12 right-4 text-white text-3xl p-3 bg-gray-900 rounded-full hover:bg-gray-800 transition z-[1100]"
             onClick={closeLightbox}
@@ -170,3 +215,5 @@ const AboutMe = () => {
 };
 
 export default AboutMe;
+
+
