@@ -52,7 +52,7 @@ void main() {
 export default function Page() {
   const [rotation, setRotation] = useState(0);
   const [mousePosition, setMousePosition] = useState([0, 0]);
-  const backgroundRef = useRef(null); 
+  const backgroundRef = useRef<HTMLDivElement>(null); // Explicitly typing the ref as HTMLDivElement
   const [isHovered, setIsHovered] = useState(false);
 
   const handleRotate = () => {
@@ -60,7 +60,7 @@ export default function Page() {
   };
 
   // Update mouse position
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: MouseEvent) => {
     const { clientX, clientY } = e;
     setMousePosition([clientX, clientY]);
   };
@@ -114,7 +114,7 @@ export default function Page() {
     camera.position.z = 1;
 
     const animate = () => {
-      shaderMaterial.uniforms.uTime.value += 0.05;
+      shaderMaterial.uniforms.uTime.value += 0.015;
       shaderMaterial.uniforms.uMousePos.value.set(mousePosition[0], mousePosition[1]);
       shaderMaterial.uniforms.uHoverEffect.value = isHovered ? 1.0 : 0.0;
 
