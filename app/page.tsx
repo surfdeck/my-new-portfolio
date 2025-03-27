@@ -22,7 +22,7 @@ void main() {
 
   // Displace the text based on mouse position
   float dist = distance(gl_Position.xy, uMousePos);
-  newPosition.x += sin(uTime + dist * 10.0) * 0.03;
+  newPosition.x += sin(uTime + dist * 20.0) * 0.005;
   newPosition.y += cos(uTime + dist * 5.0) * 0.03;
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
@@ -41,10 +41,10 @@ void main() {
   float dist = distance(st, center);
 
   // Create supernova effect when hovered
-  float brightness = exp(-dist * 5.0) * (1.0 + uHoverEffect * sin(uTime * 2.0));
+  float brightness = exp(-dist * 5.0) * (0.5 + uHoverEffect * sin(uTime * 2.0));
 
   // Glowing Neon Effect
-  vec3 color = vec3(brightness * 11.0, brightness * 0.5, brightness * 1.0); 
+  vec3 color = vec3(brightness * 6.0, brightness * 0.5, brightness * 1.5); 
 
   gl_FragColor = vec4(color, 1.0);
 }`;
