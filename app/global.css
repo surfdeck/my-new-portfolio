@@ -14,11 +14,8 @@ body {
   min-height: 100vh;
   background-size: cover;
 }
-/* Global Neon Glow Effect */
-.text-neon-glow {
-  text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #ff00ff;
-  transition: text-shadow 0.3s ease-in-out;
-}
+ 
+
 
 section {
   padding: 3rem 0;

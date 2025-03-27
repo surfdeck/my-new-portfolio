@@ -59,6 +59,7 @@ const Hero3D = () => {
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
       antialias: true,
+      alpha: true, // Enable transparency
     });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -66,62 +67,53 @@ const Hero3D = () => {
     // === Scene ===
     const scene = new THREE.Scene();
 
-    // === Load Background Image ===
-    const textureLoader = new THREE.TextureLoader();
-    textureLoader.load('/space.jpg', (texture) => {
-      scene.background = texture;
-    });
-
     // === Camera ===
     const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 2000);
     camera.position.set(0, 700, 350);
     camera.lookAt(0, 20, 0);
 
     // === Particle Setup ===
-  const particleCount = 18000;
-const geometry = new THREE.BufferGeometry();
-const positions = new Float32Array(particleCount * 3);
-const colors = new Float32Array(particleCount * 3);
-const sizes = new Float32Array(particleCount);
+    const particleCount = 18000;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+    const sizes = new Float32Array(particleCount);
 
-const color = new THREE.Color();
-const particleDistance = 1200;
+    const color = new THREE.Color();
+    const particleDistance = 1200;
 
-for (let i = 0; i < particleCount; i++) {
-  const i3 = i * 3;
-  
-  const distance = Math.random() * particleDistance;
-  const angle = Math.random() * Math.PI * 2;
+    for (let i = 0; i < particleCount; i++) {
+      const i3 = i * 3;
+      
+      const distance = Math.random() * particleDistance;
+      const angle = Math.random() * Math.PI * 2;
 
-  // Ensure that the position values are valid
-  const x = Math.cos(angle) * distance;
-  const y = (Math.random() - 0.5) * particleDistance * 20.5;
-  const z = Math.sin(angle) * distance;
+      const x = Math.cos(angle) * distance;
+      const y = (Math.random() - 0.5) * particleDistance * 20.5;
+      const z = Math.sin(angle) * distance;
 
-  // Add a check for NaN
-  if (isNaN(x) || isNaN(y) || isNaN(z)) {
-    console.error(`Invalid position values at index ${i}: x=${x}, y=${y}, z=${z}`);
-  }
+      if (isNaN(x) || isNaN(y) || isNaN(z)) {
+        console.error(`Invalid position values at index ${i}: x=${x}, y=${y}, z=${z}`);
+      }
 
-  positions[i3] = x;
-  positions[i3 + 1] = y;
-  positions[i3 + 2] = z;
+      positions[i3] = x;
+      positions[i3 + 1] = y;
+      positions[i3 + 2] = z;
 
-  const hue = Math.random() * 0.1 + 0.65;
-  color.setHSL(hue, 0.9, 0.6 + Math.random() * 0.3);
-  colors[i3] = color.r;
-  colors[i3 + 1] = color.g;
-  colors[i3 + 2] = color.b;
+      const hue = Math.random() * 0.1 + 0.65;
+      color.setHSL(hue, 0.9, 0.6 + Math.random() * 0.3);
+      colors[i3] = color.r;
+      colors[i3 + 1] = color.g;
+      colors[i3 + 2] = color.b;
 
-  sizes[i] = Math.random() * 2 + 2;
-}
+      sizes[i] = Math.random() * 2 + 2;
+    }
 
-geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
-// Compute the bounding sphere
-geometry.computeBoundingSphere();
+    geometry.computeBoundingSphere();
 
     const material = new THREE.PointsMaterial({
       size: 7.,
@@ -159,13 +151,9 @@ geometry.computeBoundingSphere();
       time += 0.01;
       enhancedWarpShader.uniforms.time.value = time;
 
-      // Adjusting particle rotation speed
       particles.rotation.y += 0.0003;
 
-      // Update OrbitControls for user interaction (rotating with mouse)
       controls.update();
-
-      // Render the scene with the postprocessing effects
       composer.render();
     };
 
@@ -190,4 +178,3 @@ geometry.computeBoundingSphere();
 };
 
 export default Hero3D;
-

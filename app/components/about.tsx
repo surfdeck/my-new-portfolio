@@ -111,7 +111,7 @@ const AboutMe = () => {
     <section id="about" className="p-8 relative">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full object-cover" />
       <div className="relative text-white">
-        <div className="absolute inset-0 bg-black/25"></div>
+        <div className="absolute inset-0 "></div>
         
         <div className="relative z-10 max-w-6xl mx-auto px-6 ">
           
