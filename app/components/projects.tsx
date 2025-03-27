@@ -258,11 +258,11 @@ export default function Projects() {
         </p>
 
 
-        <div className="grid grid-cols-1 sm:grid-cols-2   lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {projectsData.map((project, index) => (
             <div
               key={index}
-              className="hover:bg-blue-500/25 shadow hover:border-8 hover:text-blue-800 p-6 rounded-lg transition duration-900 cursor-pointer"
+              className="hover:bg-indigo-500/50 shadow  hover:border-8 text-white/25 hover:text-white/50  p-6 rounded-lg transition duration-900 cursor-pointer"
               onClick={() => openModal(project)}
             >
               <div className="w-full h-48 animate-hover relative mb-4 ">

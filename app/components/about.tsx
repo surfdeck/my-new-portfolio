@@ -165,8 +165,9 @@ const AboutMe = () => {
               </div>
 
               <p className="text-lg sm:text-xl text-gray-300 mb-8">
-                When I'm not immersed in code, I prioritize personal growth through reading, embrace the restorative power of nature, and find grounding in my faith and a healthy lifestyle – all contributing to my drive to build impactful solutions and meaningful collaborations. And of course, dancing! 
+                When I'm not immersed in code, I prioritize personal growth through reading, embrace the restorative power of nature, and find grounding in my faith and a healthy lifestyle – all contributing to my drive to build impactful solutions and meaningful collaborations.   
               </p>
+            
             </div>
           </div>
         </div>
