@@ -73,7 +73,6 @@ const AboutMe = () => {
     '/about/break-dance1.png',
     '/about/break-dance2.png',
     '/about/break-dance3.png',
-    '/about/break-dance4.png',
   ];
 
   const nextSlide = () => {

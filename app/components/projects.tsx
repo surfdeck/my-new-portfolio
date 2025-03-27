@@ -258,14 +258,14 @@ export default function Projects() {
         </p>
 
 
-        <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2   lg:grid-cols-3 gap-8">
           {projectsData.map((project, index) => (
             <div
               key={index}
-              className="hover:bg-indigo-700/25 hover:text-blue-300/25 p-6 rounded-lg shadow-lg transition duration-300 cursor-pointer"
+              className="hover:bg-blue-500/25 shadow hover:border-8 hover:text-blue-800 p-6 rounded-lg transition duration-900 cursor-pointer"
               onClick={() => openModal(project)}
             >
-              <div className="w-full h-48 relative mb-4">
+              <div className="w-full h-48 animate-hover relative mb-4 ">
                 <Image
                   src={project.images[0]}
                   alt={project.title}
@@ -274,7 +274,7 @@ export default function Projects() {
                   className="rounded-lg"
                 />
               </div>
-              <h3 className="text-2xl font-semibold text-blue-300/55 hover:animate-pulse hover:text-blue-300/75  mb-2">
+              <h3 className="text-2xl font-semibold text-indigo-300 hover:animate-pulse hover:text-white  mb-2">
                 {project.title}
               </h3>
               <p className="text-indigo-300">{project.description}</p>
@@ -296,7 +296,7 @@ export default function Projects() {
       {/* Lightbox Modal */}
       {selectedProject && (
         <div
-          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-90 z-[1000] px-4"
+          className="fixed inset-0 hover:bg-black/75 flex items-center justify-center bg-black/25  z-[1000] px-4"
           onClick={closeModal}
         >
           <div

@@ -28,15 +28,15 @@ const Skills = () => {
     // === Starry Background (Larger Stars) ===
     const createStars = (count) => {
       const geometry = new THREE.BufferGeometry();
-      const positions = new Float32Array(count * 2);
+      const positions = new Float32Array(count * 3);
       for (let i = 0; i < count * 3; i++) {
-        positions[i] = (Math.random() - 0.5) * 4000;
+        positions[i] = (Math.random() - 0.5) * 2000;
       }
       geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
       const material = new THREE.PointsMaterial({
         color: 0xffffff,
-        size: 10, // Increased size for larger stars
+        size: 7, // Increased size for larger stars
         sizeAttenuation: true,
         transparent: true,
       });
