@@ -154,7 +154,7 @@ const AboutMe = () => {
 
         <p className="text-lg sm:text-xl text-gray-200">
 
-        Below are a few areas of knowledge that I've come to understand and appreciate in world.
+        Below are a few areas of knowledge that I've come to understand and appreciate in my world.
          </p>
       </div>
 

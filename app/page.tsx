@@ -165,7 +165,9 @@ export default function Page() {
             Explore my personal portfolio
           </a>
 
-          <p>Where innovation transcends space and time. I specialize in limitless creativity and working hard!</p>
+          <p className="text-lg sm:text-xl text-gray-200">
+
+          Where innovation transcends space and time. I specialize in limitless creativity and working hard!</p>
         </section>
 
         <AboutMe />
