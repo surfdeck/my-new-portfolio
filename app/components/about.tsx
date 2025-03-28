@@ -111,67 +111,59 @@ const AboutMe = () => {
     <section id="about" className="p-8 relative">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full object-cover" />
       <div className="relative text-white">
-        <div className="absolute inset-0 "></div>
-        
-        <div className="relative z-10 max-w-6xl mx-auto px-6 ">
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-            <div className="flex justify-center items-center">
-              <div className="relative w-full sm:w-96 sm:h-96 h-72 overflow-hidden rounded-lg shadow-lg">
-                <img
-                  src={images[currentIndex]}
-                  alt="Slider Image"
-                  className="object-cover w-full h-full transition-transform duration-300 ease-in-out cursor-pointer"
-                  onClick={() => openLightbox(currentIndex)}
-                />
-                <button
-                  onClick={prevSlide}
-                  className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-indigo-600 text-white p-2 rounded-full shadow-md hover:bg-indigo-700"
-                >
-                  &#60;
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-indigo-600 text-white p-2 rounded-full shadow-md hover:bg-indigo-700"
-                >
-                  &#62;
-                </button>
-              </div>
-            </div>
+  {/* Dark overlay */}
+  <div className="absolute inset-0  opacity-60"></div>
 
-             <div className=" justify-center text-center sm:text-left">
-              <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
-                Hi, I'm Malik Villarreal
-              </h1>
-              <p className="text-lg sm:text-xl mb-8 text-gray-300">
-                Driving e-commerce success from code to conversion: I am a full-stack developer and digital marketing leader with a decade of experience in consistently delivering exceptional results. My proven track record spans diverse industries, where I excel at managing projects end-to-end and not just meeting, but exceeding key objectives. From architecting robust e-commerce platforms to visualizing complex data in 3D, I thrive on creative problem-solving, always pushing to surpass industry standards and build solutions that truly perform. My journey, rooted in web fundamentals and brand development, has always been driven by a deep commitment to going above and beyond for every project and client.
-              </p>
-
-              <div className="flex justify-center sm:justify-start gap-6 mb-8">
-                {/* Social Media Links */}
-                <a
-                  href="https://github.com/surfdeck" // Replace with your GitHub or other profiles
-                  target="_blank"
-                  className="text-indigo-400 hover:text-indigo-600 transition"
-                >
-                  GitHub
-                </a>
-                <a
-                  href="mailto:imarkets365@gmail.com" // Replace with your email
-                  className="text-indigo-400 hover:text-indigo-600 transition"
-                >
-                  Email
-                </a>
-              </div>
-
-              <p className="text-lg sm:text-xl text-gray-300 mb-8">
-                When I'm not immersed in code, I prioritize personal growth through reading, embrace the restorative power of nature, and find grounding in my faith and a healthy lifestyle – all contributing to my drive to build impactful solutions and meaningful collaborations.   
-              </p>
-            
-            </div>
-          </div>
+  <div className="relative z-10 max-w-6xl mx-auto px-6 py-16">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+      {/* Image Slider Section */}
+      <div className="flex justify-center items-center">
+        <div className="relative w-full sm:w-96 sm:h-96 h-72 overflow-hidden rounded-lg shadow-lg">
+          <img
+            src={images[currentIndex]}
+            alt="Slider Image"
+            className="object-cover w-full h-full transition-transform duration-300 ease-in-out cursor-pointer"
+            onClick={() => openLightbox(currentIndex)}
+          />
+          <button
+            onClick={prevSlide}
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-indigo-600 p-2 rounded-full shadow-md hover:bg-indigo-700"
+          >
+            &#60;
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-indigo-600 p-2 rounded-full shadow-md hover:bg-indigo-700"
+          >
+            &#62;
+          </button>
         </div>
       </div>
+
+      {/* Text & CTA Section */}
+      <div className="flex flex-col justify-center text-center sm:text-left space-y-6">
+        <h1 className="text-4xl sm:text-5xl font-extrabold">
+          Hi, I'm Malik Villarreal
+        </h1>
+        <p className="text-lg sm:text-xl text-gray-200">
+        Tenured e-commerce professional specializing in full-stack development and digital marketing. I drive success by connecting code to conversions, consistently exceeding objectives and delivering exceptional value.        </p>
+ 
+        <p className="text-lg sm:text-xl text-gray-200">
+        Outside of my professional work, I enjoy being in nature, meditation, dancing, comedy, stargazing, being creative and of course, cooking some great meals.
+        </p>
+
+        <p className="text-lg sm:text-xl text-gray-200">
+
+        Below are a few areas of knowledge that I've come to understand and appreciate in world.
+         </p>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+
 
 
       {isLightboxOpen && (
