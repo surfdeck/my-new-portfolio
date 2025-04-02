@@ -1,180 +1,175 @@
 'use client';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { ShaderMaterial } from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { RGBShiftShader } from 'three/examples/jsm/shaders/RGBShiftShader.js';
 
-// === Enhanced Warp Shader ===
-const enhancedWarpShader = {
-  uniforms: {
-    time: { value: 0.0 },
-    warpIntensity: { value: 0.5 },
-    colorShift: { value: 0.1 },
-    aiNoiseIntensity: { value: 0.0 },
-  },
-  vertexShader: `
-    varying vec2 vUv;
-    void main() {
-      vUv = uv;
-      vec3 newPosition = position;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 2.0);
-    }
-  `,
-  fragmentShader: `
-    uniform float time;
-    uniform float warpIntensity;
-    uniform float colorShift;
-    uniform float aiNoiseIntensity;
-    varying vec2 vUv;
-
-    void main() {
-      vec2 uv = vUv;
-      float distortion = sin(time * 2.0 + uv.x * 2.0) * warpIntensity;
-      vec2 warpedUv = uv + distortion;
-
-      float aiNoise = sin(uv.x * 2.0 + time) * aiNoiseIntensity;
-      warpedUv += aiNoise * 0.1;
-
-      vec3 color1 = vec3(0.0, 0.5 + colorShift, 0.2);
-      vec3 color2 = vec3(0.0, 0.3, 0.9);
-      vec3 color3 = vec3(0.0, 1.0, 1.0);
-
-      vec3 baseColor = mix(color1, color2, uv.y);
-      vec3 finalColor = mix(baseColor, color3, warpedUv.x);
-
-      gl_FragColor = vec4(finalColor, 1.0);
-    }
-  `,
-};
-
-const Hero3D = () => {
+const Hero3D = ({  }) => {
   const canvasRef = useRef(null);
+  const controlsRef = useRef(null);
+  const particlesRef = useRef(null);
+  const particlePositions = useRef([]);
+  const particleVelocities = useRef([]);
+  
+  // Define attractor positions in world space
+  const attractorPositions = [
+    new THREE.Vector3(-1, 0, 0),
+    new THREE.Vector3(1, 0, -0.5),
+    new THREE.Vector3(0, 0.5, 1),
+  ];
+  
+  // Parameters for the particle simulation
+  const particleCount = 30; // adjust for performance
+  const attractorMass = 1e7;
+  const particleGlobalMass = 1e4;
+  const gravityConstant = 6.67e-11;
+  const damping = 0.99;
+  const timeStep = 1 / 60;
 
   useEffect(() => {
-    // === Renderer ===
+    // --- Renderer, Composer & Scene Setup ---
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
       antialias: true,
-      alpha: true, // Enable transparency
+      alpha: true,
     });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-    // === Scene ===
-    const scene = new THREE.Scene();
-
-    // === Camera ===
-    const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 2000);
-    camera.position.set(0, 700, 350);
-    camera.lookAt(0, 20, 0);
-
-    // === Particle Setup ===
-    const particleCount = 18000;
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-    const colors = new Float32Array(particleCount * 3);
-    const sizes = new Float32Array(particleCount);
-
-    const color = new THREE.Color();
-    const particleDistance = 1200;
-
-    for (let i = 0; i < particleCount; i++) {
-      const i3 = i * 3;
-      
-      const distance = Math.random() * particleDistance;
-      const angle = Math.random() * Math.PI * 2;
-
-      const x = Math.cos(angle) * distance;
-      const y = (Math.random() - 0.5) * particleDistance * 20.5;
-      const z = Math.sin(angle) * distance;
-
-      if (isNaN(x) || isNaN(y) || isNaN(z)) {
-        console.error(`Invalid position values at index ${i}: x=${x}, y=${y}, z=${z}`);
-      }
-
-      positions[i3] = x;
-      positions[i3 + 1] = y;
-      positions[i3 + 2] = z;
-
-      const hue = Math.random() * 0.1 + 0.65;
-      color.setHSL(hue, 0.9, 0.6 + Math.random() * 0.3);
-      colors[i3] = color.r;
-      colors[i3 + 1] = color.g;
-      colors[i3 + 2] = color.b;
-
-      sizes[i] = Math.random() * 2 + 2;
-    }
-
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-
-    geometry.computeBoundingSphere();
-
-    const material = new THREE.PointsMaterial({
-      size: 7.,
-      vertexColors: true,
-      blending: THREE.AdditiveBlending,
-      transparent: true,
-      sizeAttenuation: true,
-    });
-
-    const particles = new THREE.Points(geometry, material);
-    scene.add(particles);
-
-    // === Composer & Effects ===
     const composer = new EffectComposer(renderer);
-    composer.addPass(new RenderPass(scene, camera));
-
+    const renderPass = new RenderPass();
+    composer.addPass(renderPass);
     const rgbShiftPass = new ShaderPass(RGBShiftShader);
-    rgbShiftPass.uniforms['amount'].value = 0.00005;
+    rgbShiftPass.uniforms['amount'].value = 0.0015;
     composer.addPass(rgbShiftPass);
 
-    // === Interactive Controls ===
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableZoom = true;
-    controls.zoomSpeed = 0.7;
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.3;
+    const scene = new THREE.Scene();
+    // --- Background Image ---
+    const bgTexture = new THREE.TextureLoader().load('/star5.jpg'); // update path
+    scene.background = bgTexture;
 
-    // === Animation Loop ===
-    let time = 0;
+    // --- Camera ---
+    const camera = new THREE.PerspectiveCamera(
+      50,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      50
+    );
+    camera.position.set(1.25, 1.25, 1.25);
+    renderPass.scene = scene;
+    renderPass.camera = camera;
+
+    // --- Lights ---
+    const directionalLight = new THREE.DirectionalLight('#ffffff', 3);
+    directionalLight.position.set(-4, 2, 0);
+    scene.add(directionalLight);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+ 
+ 
+    // --- Attractor Particles ---
+    const particlesGeometry = new THREE.SphereGeometry(0.01, 4, 4);
+    const particlesMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, blending: THREE.AdditiveBlending, transparent: true });
+    const particlesMesh = new THREE.InstancedMesh(particlesGeometry, particlesMaterial, particleCount);
+    scene.add(particlesMesh);
+    particlesRef.current = particlesMesh;
+
+    // Initialize particle positions and velocities randomly
+    particlePositions.current = [];
+    particleVelocities.current = [];
+    for (let i = 0; i < particleCount; i++) {
+      // Start particles in a cube of size 4 centered at origin
+      const pos = new THREE.Vector3(
+        (Math.random() - 0.5) * 4,
+        (Math.random() - 0.5) * 4,
+        (Math.random() - 0.5) * 4
+      );
+      particlePositions.current.push(pos);
+      // Start with zero velocity
+      particleVelocities.current.push(new THREE.Vector3());
+      // Set initial matrix
+      const dummy = new THREE.Object3D();
+      dummy.position.copy(pos);
+      dummy.updateMatrix();
+      particlesMesh.setMatrixAt(i, dummy.matrix);
+    }
+    particlesMesh.instanceMatrix.needsUpdate = true;
+
+    // --- Controls with Clickable Auto-Rotate Toggle ---
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.minDistance = 0.1;
+    controls.maxDistance = 100;
+    controls.enableRotate = true;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.5;
+    controlsRef.current = controls;
+
+    // --- Animation Loop ---
+    const clock = new THREE.Clock();
+    const dummy = new THREE.Object3D();
     const animate = () => {
       requestAnimationFrame(animate);
+      const elapsedTime = clock.getElapsedTime();
+ 
 
-      time += 0.01;
-      enhancedWarpShader.uniforms.time.value = time;
-
-      particles.rotation.y += 0.0003;
+      // --- Attractor Particle Simulation ---
+      // For each particle, compute force from each attractor
+      for (let i = 0; i < particleCount; i++) {
+        const pos = particlePositions.current[i];
+        const vel = particleVelocities.current[i];
+        const force = new THREE.Vector3();
+        for (let j = 0; j < attractorPositions.length; j++) {
+          const attractorPos = attractorPositions[j];
+          const dir = new THREE.Vector3().subVectors(attractorPos, pos);
+          const distanceSq = Math.max(dir.lengthSq(), 20.0001);
+          dir.normalize();
+          // Simplified gravitational force
+          const strength = (attractorMass * particleGlobalMass) / distanceSq;
+          force.add(dir.multiplyScalar(strength));
+        }
+   
+        // Update instanced mesh matrix
+        dummy.position.copy(pos);
+        dummy.updateMatrix();
+        particlesMesh.setMatrixAt(i, dummy.matrix);
+      }
+      particlesMesh.instanceMatrix.needsUpdate = true;
 
       controls.update();
       composer.render();
     };
-
     animate();
 
-    const handleResize = () => {
-      renderer.setSize(window.innerWidth, window.innerHeight);
+    // --- Resize Handler ---
+    const onWindowResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      composer.setSize(window.innerWidth, window.innerHeight);
     };
-    window.addEventListener('resize', handleResize);
-
+    window.addEventListener('resize', onWindowResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
-      renderer.dispose();
-      geometry.dispose();
-      material.dispose();
+      window.removeEventListener('resize', onWindowResize);
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 object-cover" />;
+  // Toggle auto-rotate on canvas click
+  const handleCanvasClick = () => {
+    if (controlsRef.current) {
+      controlsRef.current.autoRotate = !controlsRef.current.autoRotate;
+    }
+  };
+
+  return (
+    <canvas
+      ref={canvasRef}
+      onClick={handleCanvasClick}
+      style={{ width: '100%', height: '100%', cursor: 'pointer' }}
+    />
+  );
 };
 
 export default Hero3D;

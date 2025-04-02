@@ -119,7 +119,7 @@ export function Navbar() {
                   <Link
                     key={item.path}
                     href={item.path}
-                    className={`relative group text-lg px-3 py-2 mb-2 text-white transition-colors duration-300 hover:text-indigo-600 ${isActive ? 'text-indigo-600 font-bold' : ''}`}
+                    className={`relative group text-lg px-3 py-2 mb-2 text-black transition-colors duration-300 hover:text-indigo-600 ${isActive ? 'text-indigo-600 font-bold' : ''}`}
                   >
                     {item.name}
                     <AnimatePresence>

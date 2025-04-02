@@ -80,9 +80,8 @@ export default function ThankYou() {
       <div className="max-w-4xl mt-20 mx-auto text-white px-4 sm:px-6 lg:px-8 z-10 relative">
         <h2 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6">Thank You for Visiting!</h2>
         <p className="text-base sm:text-lg">
-          Looking forward to working with you. I believe we can build amazing projects together!
         </p>
-      </div>
+        Over a decade of solving challenges across diverse business landscapes has taught me one fundamental lesson: delivering results. And that's exactly what I do.      </div>
       <canvas id="threeCanvas" className="absolute top-0 left-0 w-full h-full"></canvas>
     </section>
   );

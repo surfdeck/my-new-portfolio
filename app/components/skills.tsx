@@ -52,7 +52,7 @@ const Skills = () => {
       "JavaScript", "Python", "React", "Flask", "C++", "Next.js", "TypeScript", 
       "TailwindCSS", "MongoDB", "APIs", "Blender", "Three.js", "Vercel", 
       "AdWords", "SEO/SEM", "Shopify", "Adobe", "Soft Skills", "WordPress", "Mailchimp", 
-      "cPanel", "AI", "Marketing", "E-commerce"
+      "cPanel", "AI", "Marketing", "E-commerce", "Marketing"
     ];
 
     const createSkillSprite = (skill: string) => {

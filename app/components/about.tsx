@@ -21,7 +21,7 @@ const AboutMe = () => {
 
     // === Particles ===
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 100;
+    const particlesCount = 50;
     const positions = new Float32Array(particlesCount * 3);
 
     for (let i = 0; i < particlesCount * 3; i++) {
@@ -69,7 +69,6 @@ const AboutMe = () => {
   const images = [
     '/about/stl-ocean.png',
     '/about/mv.png',
-    '/about/art-project3.png',
     '/about/break-dance1.png',
     '/about/break-dance2.png',
     '/about/break-dance3.png',
@@ -108,60 +107,54 @@ const AboutMe = () => {
   }, []);
 
   return (
-    <section id="about" className="p-8 relative">
+    <section id="about" className="p-8 relative mt-20">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full object-cover" />
       <div className="relative text-white">
   {/* Dark overlay */}
   <div className="absolute inset-0  opacity-60"></div>
-
   <div className="relative z-10 max-w-6xl mx-auto px-6 py-16">
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-      {/* Image Slider Section */}
-      <div className="flex justify-center items-center">
-        <div className="relative w-full sm:w-96 sm:h-96 h-72 overflow-hidden rounded-lg shadow-lg">
-          <img
-            src={images[currentIndex]}
-            alt="Slider Image"
-            className="object-cover w-full h-full transition-transform duration-300 ease-in-out cursor-pointer"
-            onClick={() => openLightbox(currentIndex)}
-          />
-          <button
-            onClick={prevSlide}
-            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-indigo-600 p-2 rounded-full shadow-md hover:bg-indigo-700"
-          >
-            &#60;
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-indigo-600 p-2 rounded-full shadow-md hover:bg-indigo-700"
-          >
-            &#62;
-          </button>
-        </div>
-      </div>
-
-      {/* Text & CTA Section */}
-      <div className="flex flex-col justify-center text-center sm:text-left space-y-6">
-        <h1 className="text-4xl sm:text-5xl font-extrabold">
-          Hi, I'm Malik Villarreal
-        </h1>
-        <p className="text-lg sm:text-xl text-gray-200">
-        Tenured e-commerce professional specializing in full-stack development and digital marketing. I drive success by connecting code to conversions, consistently exceeding objectives and delivering exceptional value.        </p>
- 
-        <p className="text-lg sm:text-xl text-gray-200">
+  <div className="grid grid-cols-1 md:grid-cols-2 md:flex-row md:gap-16 flex flex-col-reverse">
+    
+    {/* Text & CTA Section */}
+    <div className="flex flex-col justify-center text-center sm:text-left mb-10 space-y-6 order-1 md:order-2">
+      <h1 className="text-3xl sm:text-5xl font-extrabold">
+        Hi, I'm Malik Villarreal
+      </h1>
+      <p className="text-lg sm:text-xl text-gray-200">
+        Tenured e-commerce professional specializing in full-stack development and digital marketing. I drive success by connecting code to conversions, consistently exceeding objectives and delivering exceptional value.
+      </p>
+      <p className="text-lg sm:text-xl text-gray-200">
         Outside of my professional work, I enjoy being in nature, meditation, dancing, comedy, stargazing, being creative and of course, cooking some great meals.
-        </p>
-
-        <p className="text-lg sm:text-xl text-gray-200">
-
-        Below are a few areas of knowledge that I've come to understand and appreciate in my world.
-         </p>
-      </div>
-
-
-
+      </p>
     </div>
+
+    {/* Image Slider Section */}
+    <div className="flex justify-center items-center hover:border-slate-700 hover:bg-indigo-500/50 shadow border-4 hover:border-6 text-white/25 hover:text-white/50 p-6 rounded-lg transition duration-900 cursor-pointer order-2 md:order-1">
+      <div className="relative w-full sm:w-96 sm:h-96 h-72 overflow-hidden rounded-lg shadow-lg">
+        <img
+          src={images[currentIndex]}
+          alt="Slider Image"
+          className="object-cover w-full h-full transition-transform duration-300 ease-in-out cursor-pointer"
+          onClick={() => openLightbox(currentIndex)}
+        />
+        <button
+          onClick={prevSlide}
+          className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-indigo-600 p-2 rounded-full shadow-md hover:bg-indigo-700"
+        >
+          &#60;
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-indigo-600 p-2 rounded-full shadow-md hover:bg-indigo-700"
+        >
+          &#62;
+        </button>
+      </div>
+    </div>
+
   </div>
+</div>
+
 </div>
 
 

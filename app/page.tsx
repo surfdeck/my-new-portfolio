@@ -2,8 +2,10 @@
 import Hero3D from 'app/components/hero3d'; 
 import ThankYou from 'app/components/thank-you';
 import Projects from 'app/components/projects';
-import AboutMe from 'app/components/about';
+import About from 'app/components/about';
 import Skills from 'app/components/skills';
+import Marketing from 'app/components/marketing'
+import Blurb from 'app/components/blurb'
 import { useState, useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
@@ -25,7 +27,7 @@ void main() {
   newPosition.x += sin(uTime + dist * 10.0) * 0.03;
   newPosition.y += cos(uTime + dist * 5.0) * 0.03;
 
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 0.80);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 0.20);
 }`;
 
 const fragmentShader = `
@@ -44,7 +46,7 @@ void main() {
   float brightness = exp(-dist * 5.0) * (1.0 + uHoverEffect * sin(uTime * 2.0));
 
   // Glowing Neon Effect
-  vec3 color = vec3(brightness * 0.23, brightness * 0.05, brightness * 6.0); 
+  vec3 color = vec3(brightness * 0.23, brightness * 0.05, brightness * 0.0); 
 
   gl_FragColor = vec4(color, 1.0);
 }`;
@@ -170,9 +172,11 @@ export default function Page() {
           Where innovation transcends space and time. I specialize in limitless creativity and working hard!</p>
         </section>
 
-        <AboutMe />
+        <About />
+        <Marketing />
         <Skills />
         <Projects />
+        <Blurb />
         <ThankYou />
       </div>
     </div>
