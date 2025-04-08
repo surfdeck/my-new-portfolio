@@ -15,7 +15,7 @@ const projectsData: Project[] = [
   {
     title: "Sample_mflix MongoDB Movies",
     description:
-      "A movie browsing application that fetches movie data from a MongoDB database using a Flask/Python API. Users can search for movies, explore trending titles, and view detailed information, including cast, ratings, and awards.",
+      "A movie browsing application that fetches movie data from a MongoDB database using a Flask/Python API. Users can search for movies, view detailed movie information, including cast, ratings, and awards.",
     images: ["/project-movies/2.png", "/project-movies/3.png"],
     link: "https://github.com/surfdeck/nextjs-flask-sample-mflix-mongodb.git",
   },
@@ -36,7 +36,7 @@ const projectsData: Project[] = [
   {
     title: "3D Fractal Model Generator",
     description:
-      "A fractal model generator built with Next.js, Flask/Python, and Three.js, featuring pre-loaded designs. Also implemented in C++ using Python/JavaScript.",
+      "A fractal model generator built with Next.js, Flask/Python, and Three.js, featuring pre-loaded designs created from ChatGPT",
     images: ["/project1/1.png", "/project1/4.png"],
     link: "https://github.com/surfdeck/nextjs-flask-fractal-creator",
   },
@@ -78,7 +78,7 @@ const projectsData: Project[] = [
   {
     title: "Custom Web Solutions & Branding",
     description:
-      "Developed and managed websites, branding, and marketing solutions for John David LLC and its diverse client base. Projects included full website development, e-commerce platforms, digital marketing strategies, and graphic design for businesses across various industries.",
+      "Developed and managed websites, branding, and marketing solutions for various companies providing me experience with a diverse client base. Full website development, e-commerce platforms, digital marketing strategies, graphic design and business development",
     images: [
       "/project7/9.png",
       "/project7/5.png",
@@ -130,79 +130,27 @@ export default function Projects() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [selectedProject]);
 
-  // === Three.js Starfield Background Setup ===
-  useEffect(() => {
-    if (!canvasRef.current) return;
-
-    const parent = canvasRef.current.parentElement;
-    if (!parent) return;
-
-    const { clientWidth, clientHeight } = parent;
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, clientWidth / clientHeight, 0.1, 1000);
-    camera.position.z = 1;
-
-    const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current, alpha: true });
-    renderer.setSize(clientWidth, clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-
-    // Create starfield geometry
-    const starsGeometry = new THREE.BufferGeometry();
-    const starsCount = 100;
-    const positions = new Float32Array(starsCount * 3);
-    for (let i = 0; i < starsCount * 3; i++) {
-      positions[i] = (Math.random() - 0.5) * 200;
-    }
-    starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-    // Star material
-    const starsMaterial = new THREE.PointsMaterial({
-      color: 0xffffff,
-      size: 0.7,
-      sizeAttenuation: true,
-    });
-
-    const starField = new THREE.Points(starsGeometry, starsMaterial);
-    scene.add(starField);
-
-    // Animation Loop
-    const animate = () => {
-      requestAnimationFrame(animate);
-      starField.rotation.x += 0.0005;
-      starField.rotation.y += 0.0005;
-      renderer.render(scene, camera);
-    };
-    animate();
-
-    const handleResize = () => {
-      const { clientWidth, clientHeight } = parent;
-      camera.aspect = clientWidth / clientHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(clientWidth, clientHeight);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      renderer.dispose();
-    };
-  }, []);
+ 
 
   return (
-    <section id="projects" className="relative p-8 text-black overflow-hidden mt-28">
+    <section id="projects" className="relative bg-white p-8 text-black overflow-hidden mt-28">
       {/* Starfield Background */}
-      <canvas ref={canvasRef} className="absolute bg-white text-black inset-0 object-cover -z-10" />
+      {/* <canvas ref={canvasRef} className="absolute bg-white text-black inset-0 object-cover -z-10" /> */}
 
-      <div className="max-w-7xl mx-auto text-center p-4">
+      <div className="max-w-4xl mx-auto text-center text-white p-4 mt-12">
         <h2 className="text-4xl font-bold mb-8">My Projects</h2>
-        <p className="text-xl mb-8">
+        <p className="text-xl mb-12">
           Explore a curated selection of my most innovative projects—software apps I've built to showcase my range of coding skills and mastered tools.
         </p>
+        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 hover:bg-black/5">
+        <div className="max-w-7xl mx-auto text-center p-4 mt-12">
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {projectsData.map((project, index) => (
             <div
               key={index}
-              className="hover:bg-indigo-500/50 shadow border-4 hover:border-6 text-black/25 hover:text-black p-6 rounded-lg transition duration-900 cursor-pointer"
+              className="hover:bg-indigo-300/75 bg-white shadow border-4 hover:border-6 text-black/25 hover:text-black p-6 rounded-lg transition duration-900 cursor-pointer"
               onClick={() => openModal(project)}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
@@ -239,63 +187,67 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* Lightbox Modal */}
-      {selectedProject && (
-        <div
-          className="fixed inset-0 hover:bg-black flex items-center justify-center bg-black/25 z-[1000] px-4"
-          onClick={closeModal}
-        >
-          <div
-            className="relative w-full max-w-5xl flex flex-col items-center"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="relative w-full max-w-4xl flex justify-center items-center">
-              <div className="relative w-full max-w-[90%] md:max-w-[80%] lg:max-w-[70%]">
-                <Image
-                  src={selectedProject.images[currentIndex]}
-                  alt={selectedProject.title}
-                  width={900}
-                  height={600}
-                  style={{ objectFit: "cover" }}
-                  className="rounded-lg object-cover w-full h-full"
-                />
-              </div>
-              <button
-                onClick={prevSlide}
-                className="absolute left-4 md:left-8 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white p-3 rounded-full shadow-md hover:bg-gray-800 transition"
-              >
-                &#60;
-              </button>
-              <button
-                onClick={nextSlide}
-                className="absolute right-4 md:right-8 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white p-3 rounded-full shadow-md hover:bg-gray-800 transition"
-              >
-                &#62;
-              </button>
-            </div>
-            <button
-              className="absolute top-4 right-4 text-white text-3xl p-3 bg-gray-900 rounded-full hover:bg-gray-800 transition z-[1100]"
-              onClick={closeModal}
-            >
-              ✕
-            </button>
-            <div className="bg-white text-black w-full max-w-4xl p-6 text-center rounded-b-lg mt-4">
-              <h3 className="text-2xl font-bold">{selectedProject.title}</h3>
-              <p className="text-lg">{selectedProject.description}</p>
-              {selectedProject.link && selectedProject.link !== "#" && (
-                <a
-                  href={selectedProject.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-indigo-600 hover:text-indigo-800 mt-4 inline-block"
-                >
-                  Link to Github
-                </a>
-              )}
-            </div>
-          </div>
+       {/* Lightbox Modal */}
+{selectedProject && (
+  <div
+    className="fixed inset-0 flex items-center justify-center bg-black/95 z-[1000] px-4"
+    onClick={closeModal}
+  >
+    <div
+      className="relative w-full max-w-5xl flex flex-col items-center"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* Close Button - stays fixed */}
+      <button
+        className="absolute top-6 right-6 text-white text-3xl p-2 bg-gray-900 rounded-full hover:bg-gray-800 transition z-[1100]"
+        onClick={closeModal}
+      >
+        ✕
+      </button>
+
+      {/* Image Area */}
+      <div className="relative w-full max-w-4xl flex justify-center items-center">
+        <div className="relative w-full aspect-[3/2] max-w-[90%] md:max-w-[80%] lg:max-w-[70%] bg-black rounded-lg overflow-hidden flex items-center justify-center">
+          <Image
+            src={selectedProject.images[currentIndex]}
+            alt={selectedProject.title}
+            fill
+            style={{ objectFit: "contain" }}
+            className="rounded-lg"
+          />
         </div>
-      )}
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 md:left-8 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white p-3 rounded-full shadow-md hover:bg-gray-800 transition"
+        >
+          &#60;
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 md:right-8 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white p-3 rounded-full shadow-md hover:bg-gray-800 transition"
+        >
+          &#62;
+        </button>
+      </div>
+
+      {/* Info Card */}
+      <div className="bg-white text-black w-full max-w-4xl p-6 text-center rounded-b-lg mt-4">
+        <h3 className="text-2xl font-bold">{selectedProject.title}</h3>
+        <p className="text-lg">{selectedProject.description}</p>
+        {selectedProject.link && selectedProject.link !== "#" && (
+          <a
+            href={selectedProject.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-600 hover:text-indigo-800 mt-4 inline-block"
+          >
+            Link to Github
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+)}
     </section>
   );
 }

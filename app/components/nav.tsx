@@ -52,7 +52,7 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav className="fixed top-0 left-0 w-full  bg-opacity-80  shadow-md z-50">
+    <nav className="fixed top-0 left-0 w-full  bg-opacity-80 hover:bg-black shadow-md z-50">
       <div className="container mx-auto flex items-center justify-between px-6 py-3">
         
         {/* Logo Section */}
@@ -112,7 +112,7 @@ export function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-white text-black py-4"
           >
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center hover:bg-zinc-700">
               {navItems.map((item) => {
                 const isActive = activeHash === item.path;
                 return (

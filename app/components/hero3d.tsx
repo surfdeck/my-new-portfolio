@@ -51,8 +51,8 @@ const Hero3D = () => {
     const scene = new THREE.Scene();
 
     // --- Background Image ---
-    const bgTexture = new THREE.TextureLoader().load('/star5.jpg'); // update path
-    scene.background = bgTexture;
+    scene.background = new THREE.Color('#f5f5dcaa'); // Beige color
+
 
     // --- Camera ---
     const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 50);

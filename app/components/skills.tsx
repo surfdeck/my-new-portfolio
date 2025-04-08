@@ -25,6 +25,7 @@ const Skills = () => {
     controls.enableDamping = true;
 
     const boundary = { x: 250, y: 250, z: 50 };
+    scene.background = new THREE.Color('#000000'); // Beige color
 
     // === Starry Background (Larger Stars) ===
     const createStars = (count: number) => {

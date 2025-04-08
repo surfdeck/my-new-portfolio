@@ -107,17 +107,17 @@ const AboutMe = () => {
   }, []);
 
   return (
-    <section id="about" className="p-8 relative mt-20">
+    <section id="about" className="p-8 relative bg-black mt-20">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full object-cover" />
       <div className="relative text-white">
   {/* Dark overlay */}
   <div className="absolute inset-0  opacity-60"></div>
   <div className="relative z-10 max-w-6xl mx-auto px-6 py-16">
-  <div className="grid grid-cols-1 md:grid-cols-2 md:flex-row md:gap-16 flex flex-col-reverse">
+  <div className="grid grid-cols-1 md:grid-cols-2 md:flex-row md:gap-16  flex-col-reverse">
     
     {/* Text & CTA Section */}
     <div className="flex flex-col justify-center text-center sm:text-left mb-10 space-y-6 order-1 md:order-2">
-      <h1 className="text-3xl sm:text-5xl font-extrabold">
+      <h1 className="text-2xl sm:text-4xl font-extrabold">
         Hi, I'm Malik Villarreal
       </h1>
       <p className="text-lg sm:text-xl text-gray-200">

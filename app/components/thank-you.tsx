@@ -25,7 +25,7 @@ export default function ThankYou() {
     // Create a sphere with neon material
     const geometry = new THREE.SphereGeometry(10, 1, 22);
     const material = new THREE.MeshStandardMaterial({
-      color: 0xffff,
+      color: 0xffff00,
       emissive: 0xff00ff,
       emissiveIntensity: 1,
       metalness: 0.5,
@@ -44,6 +44,7 @@ export default function ThankYou() {
 
     // Set camera position
     camera.position.z = 20;
+    scene.background = new THREE.Color('#000000'); // Beige color
 
     // Set up orbit controls
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -78,11 +79,12 @@ export default function ThankYou() {
   return (
     <section id="contact" className="p-8 mt-20 relative">
       <div className="max-w-4xl mt-20 mx-auto text-white px-4 sm:px-6 lg:px-8 z-10 relative">
-        <h2 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6">Thank You for Visiting!</h2>
+        <h2 className="text-4xl sm:text-4xl font-bold mb-4 sm:mb-6">THX for visiting!</h2>
         <p className="text-base sm:text-lg">
         </p>
-        Over a decade of solving challenges across diverse business landscapes has taught me one fundamental lesson: delivering results. And that's exactly what I do.      </div>
-      <canvas id="threeCanvas" className="absolute top-0 left-0 w-full h-full"></canvas>
+        Over a decade of solving challenges across diverse business landscapes has taught me one fundamental lesson: deliver results. And that's exactly what I do. 
+              </div>
+      <canvas id="threeCanvas" className="absolute top-0 left-0 wa-full h-full"></canvas>
     </section>
   );
 }

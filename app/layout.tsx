@@ -18,8 +18,8 @@ export default function RootLayout({
 
       )}
     >
-     <body className="antialiased"> {/* Removed max-w-xl, mx-4, mt-8, lg:mx-auto from body - see container below */}
-        <main className="max-w-screen-xl mx-auto px-4 lg:px-8"> {/* Container for max width and horizontal padding */}
+     <body className="antialiased"> 
+        <main className="max-w-screen-xl mx-auto px-4 lg:px-8">  
           <Navbar />
           {children}
           <Footer />
